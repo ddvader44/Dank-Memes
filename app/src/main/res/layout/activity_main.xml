@@ -30,29 +30,29 @@
         android:id="@+id/nextButton"
         android:layout_width="159dp"
         android:layout_height="53dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/button_bg"
         android:backgroundTint="@color/bruh"
         android:onClick="showNextMeme"
         android:text="@string/next"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/guideline"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="30dp"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
     <Button
         android:id="@+id/shareButton"
         android:layout_width="159dp"
         android:layout_height="53dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/button_bg"
         android:backgroundTint="@color/colorAccent"
         android:onClick="shareMeme"
         android:text="@string/share"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/guideline"
-        android:layout_marginBottom="30dp"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -60,4 +60,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/makeMeme"
+        android:layout_width="62dp"
+        android:layout_height="59dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="@color/yellow"
+        android:src="@drawable/ic_add"
+        android:background="@drawable/button_bg"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:borderWidth="0dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
