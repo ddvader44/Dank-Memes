@@ -2,4 +2,10 @@
     <string name="app_name">Dank Memes</string>
     <string name="share">SHARE</string>
     <string name="next">NEXT</string>
+    <string name="top_text">Top Text</string>
+    <string name="bottom_text">Bottom Text</string>
+    <string name="clear">Clear</string>
+    <string name="trybtn">TRY</string>
+    <string name="choose_image">Choose Image</string>
+    <string name="save">SAVE</string>
 </resources>

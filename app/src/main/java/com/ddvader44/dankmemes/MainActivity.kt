@@ -82,4 +82,9 @@ class MainActivity : AppCompatActivity() {
     fun showNextMeme(view: View) {
         loadMeme()
     }
+
+    fun makeMemes(view: View) {
+        val intent = Intent(this,MakeMemeActivity::class.java)
+        startActivity(intent)
+    }
 }

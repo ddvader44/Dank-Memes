@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MakeMemeActivity"
     android:background="@color/colorPrimary">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/tlay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,43 +18,48 @@
             android:id="@+id/editText1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Top Text"
+            android:hint="@string/top_text"
             android:textColorHint="@color/white"
             android:inputType="text"
             android:textColor="@color/white"
-            android:gravity="center"/>
+            android:gravity="center"
+            />
 
         <EditText
             android:id="@+id/editText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Bottom Text"
+            android:hint="@string/bottom_text"
             android:textColorHint="@color/white"
             android:inputType="text"
             android:textColor="@color/white"
-            android:gravity="center" />
+            android:gravity="center"
+            android:layout_below="@+id/editText1"/>
 
         <Button
             android:id="@+id/btnClear"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="Clear"
+            android:text="@string/clear"
             android:background="@drawable/button_bg"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/bruh"/>
+            android:textColor="@color/colorPrimaryDark"
+            android:backgroundTint="@color/bruh"
+            android:layout_below="@+id/editText2"
+            android:layout_margin="30dp"/>
 
         <Button
             android:id="@+id/go"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="TRY"
+            android:layout_below="@+id/editText2"
+            android:layout_toEndOf="@+id/btnClear"
             android:background="@drawable/button_bg"
-            android:textColor="@color/white"
             android:backgroundTint="@color/colorAccent"
-            />
+            android:text="@string/trybtn"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_margin="30dp"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/blay"
@@ -70,22 +74,39 @@
             android:id="@+id/load"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:text="LOAD"
-            android:layout_height="wrap_content" />
+            android:text="@string/choose_image"
+            android:textSize="12sp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_bg"
+            android:textColor="@color/colorPrimaryDark"
+            android:backgroundTint="#FA8072"
+            android:layout_margin="15dp"
+            />
 
         <Button
             android:id="@+id/save"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:text="SAVE"
-            android:layout_height="wrap_content" />
+            android:text="@string/save"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_bg"
+            android:textColor="@color/colorPrimaryDark"
+            android:backgroundTint="#9ACD32"
+            android:layout_margin="15dp"
+            />
 
         <Button
             android:id="@+id/share"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:text="SHARE"
-            android:layout_height="wrap_content" />
+            android:text="@string/share"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_bg"
+            android:textColor="@color/colorPrimaryDark"
+            android:backgroundTint="#FF00FF"
+            android:layout_margin="15dp"
+
+            />
 
     </LinearLayout>
 
@@ -101,7 +122,8 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:scaleType="fitXY"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            />
 
         <TextView
             android:id="@+id/textView1"
@@ -112,7 +134,9 @@
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:textColor="#ffffff"
-            android:textSize="40dp" />
+            android:textSize="32sp"
+            android:fontFamily="@font/product"
+            />
 
         <TextView
             android:id="@+id/textView2"
@@ -123,7 +147,8 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:textColor="#ffffff"
-            android:textSize="40dp" />
+            android:textSize="40sp"
+            android:fontFamily="@font/product"/>
 
 
     </RelativeLayout>
