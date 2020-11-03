@@ -2,14 +2,21 @@ package com.ddvader44.dankmemes
 
 import android.Manifest
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_make_meme.*
 import pub.devrel.easypermissions.EasyPermissions
+import java.io.File
+import java.io.FileOutputStream
 
 
 class MakeMemeActivity : AppCompatActivity() {
@@ -44,6 +51,8 @@ class MakeMemeActivity : AppCompatActivity() {
     fun clear(view: View) {
         topText.setText("")
         bottomText.setText("")
+        save.isEnabled = false
+        share.isEnabled = false
 
     }
     fun tryBtn(view: View) {}
@@ -51,9 +60,39 @@ class MakeMemeActivity : AppCompatActivity() {
     fun share(view: View) {}
 
 
+    fun screenShot(view: View): Bitmap? {
+        val bitmap = Bitmap.createBitmap(
+            view.width,
+            view.height, Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        view.draw(canvas)
+        return bitmap
+    }
+
+
+    fun storeMeme(bm: Bitmap, fileName: String?) {
+        val dirPath: String =
+            Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/MEME"
+        val dir = File(dirPath)
+        if (!dir.exists()) {
+            dir.mkdir()
+        }
+        val file = File(dirPath, fileName)
+        try {
+            val fos = FileOutputStream(file)
+            bm.compress(Bitmap.CompressFormat.PNG, 100, fos)
+            fos.flush()
+            fos.close()
+            Toast.makeText(this, "Meme Saved Successfully!", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error!", Toast.LENGTH_SHORT).show()
+        }
+    }
 
 
 
+    // permissions
 
     private fun requestPermissions() {
         if (Utility.hasLocationPermissions(applicationContext)) {
@@ -76,6 +115,10 @@ class MakeMemeActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
 
