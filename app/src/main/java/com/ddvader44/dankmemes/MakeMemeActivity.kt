@@ -1,9 +1,11 @@
 package com.ddvader44.dankmemes
 
 import android.Manifest
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -13,10 +15,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_make_meme.*
+import androidx.core.content.FileProvider
 import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
 import java.io.FileOutputStream
+import java.io.OutputStream
 
 
 class MakeMemeActivity : AppCompatActivity() {
@@ -29,8 +32,8 @@ class MakeMemeActivity : AppCompatActivity() {
     lateinit var memeTop: TextView
     lateinit var memeBottom: TextView
     lateinit var memeImage: ImageView
-    var imageLoaded = false
-    var textAdded = false
+    lateinit var memes : View
+    var currentImage = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,16 +54,62 @@ class MakeMemeActivity : AppCompatActivity() {
     fun clear(view: View) {
         topText.setText("")
         bottomText.setText("")
-        save.isEnabled = false
-        share.isEnabled = false
-
+        memeTop.setText("")
+        memeBottom.setText("")
     }
-    fun tryBtn(view: View) {}
-    fun save(view: View) {}
-    fun share(view: View) {}
+
+    fun tryBtn(view: View) {
+        if (topText.text.toString().equals("") && bottomText.text.toString().equals("")) {
+            Toast.makeText(this,"Enter some text first",Toast.LENGTH_SHORT).show()
+        } else {
+            memeTop.text = topText.text.toString()
+            memeBottom.text = bottomText.text.toString()
+        }
+    }
+
+    fun save(view: View) {
+        memes = findViewById(R.id.lay)
+        val bitmap: Bitmap = screenShot(memes)
+        currentImage = "meme" + System.currentTimeMillis()+".png"
+        storeMeme(bitmap, currentImage)
+    }
 
 
-    fun screenShot(view: View): Bitmap? {
+    fun share(view: View) {
+        val dirPath = Environment.getExternalStorageDirectory().absolutePath + "/MEME"
+        val imageName = "meme" + System.currentTimeMillis() + ".png"
+        memes = findViewById(R.id.lay)
+        val bitmap: Bitmap = screenShot(memes)
+        val imageFile = File(dirPath, imageName)
+        val os: OutputStream
+        try {
+            os = FileOutputStream(imageFile)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os)
+            os.flush()
+            os.close()
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+
+        val uri: Uri = FileProvider.getUriForFile(
+            this,
+            "com.ddvader44.dankmemes.provider",
+            imageFile
+        )
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.putExtra(Intent.EXTRA_STREAM, uri)
+        intent.type = "image/*"
+
+        try {
+            startActivity(Intent.createChooser(intent, "Share Via"))
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(this, "No sharing app found", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    private fun screenShot(view: View): Bitmap {
         val bitmap = Bitmap.createBitmap(
             view.width,
             view.height, Bitmap.Config.ARGB_8888
@@ -71,7 +120,7 @@ class MakeMemeActivity : AppCompatActivity() {
     }
 
 
-    fun storeMeme(bm: Bitmap, fileName: String?) {
+    private fun storeMeme(bm: Bitmap, fileName: String) {
         val dirPath: String =
             Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/MEME"
         val dir = File(dirPath)
@@ -119,6 +168,7 @@ class MakeMemeActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
     }
 
 
