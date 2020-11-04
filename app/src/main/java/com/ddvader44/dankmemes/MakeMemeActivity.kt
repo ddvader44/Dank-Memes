@@ -5,15 +5,14 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import pub.devrel.easypermissions.EasyPermissions
@@ -26,7 +25,7 @@ class MakeMemeActivity : AppCompatActivity() {
 
     private val MY_PERMISSION_REQUEST = 1
     private val RESULT_LOAD_IMAGE = 2
-
+    lateinit var chooseImage : Button
     lateinit var topText: EditText
     lateinit var bottomText: EditText
     lateinit var memeTop: TextView
@@ -43,14 +42,63 @@ class MakeMemeActivity : AppCompatActivity() {
         memeTop = findViewById(R.id.textView1)
         memeBottom = findViewById(R.id.textView2)
         memeImage = findViewById(R.id.imageView)
+        chooseImage = findViewById(R.id.load)
+        chooseImage.setOnClickListener {
+            load()
+        }
         requestPermissions()
     }
 
 
-    fun load(view: View) {
+    private fun load() {
         val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(i, RESULT_LOAD_IMAGE)
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode === RESULT_LOAD_IMAGE && resultCode === RESULT_OK && data != null && data.data !=null) {
+            val selectedPhotoUri = data.data
+            try {
+                selectedPhotoUri?.let {
+                    if(Build.VERSION.SDK_INT < 28) {
+                        val bitmap = MediaStore.Images.Media.getBitmap(
+                            this.contentResolver,
+                            selectedPhotoUri
+                        )
+                        memeImage.setImageBitmap(bitmap)
+                    } else {
+                        val source = ImageDecoder.createSource(this.contentResolver, selectedPhotoUri)
+                        val bitmap = ImageDecoder.decodeBitmap(source)
+                        memeImage.setImageBitmap(bitmap)
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+
+
+
+            /*      val selectedImage: Uri? = data?.data
+            val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+            val cursor: Cursor? = contentResolver.query(
+                selectedImage!!,
+                filePathColumn, null, null, null
+            )
+            cursor?.moveToFirst()
+            val columnIndex: Int = cursor!!.getColumnIndex(filePathColumn[0])
+            val picturePath: String = cursor.getString(columnIndex)
+            cursor.close()
+            memeImage.setImageBitmap(BitmapFactory.decodeFile(picturePath)) */
+
+
+    }
+
+
+
+
     fun clear(view: View) {
         topText.setText("")
         bottomText.setText("")
@@ -60,7 +108,7 @@ class MakeMemeActivity : AppCompatActivity() {
 
     fun tryBtn(view: View) {
         if (topText.text.toString().equals("") && bottomText.text.toString().equals("")) {
-            Toast.makeText(this,"Enter some text first",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Enter some text first", Toast.LENGTH_SHORT).show()
         } else {
             memeTop.text = topText.text.toString()
             memeBottom.text = bottomText.text.toString()
@@ -166,10 +214,6 @@ class MakeMemeActivity : AppCompatActivity() {
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-    }
 
 
 }

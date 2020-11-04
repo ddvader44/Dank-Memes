@@ -83,7 +83,6 @@
             android:textColor="@color/colorPrimaryDark"
             android:backgroundTint="#FA8072"
             android:layout_margin="15dp"
-            android:onClick="load"
             />
 
         <Button
