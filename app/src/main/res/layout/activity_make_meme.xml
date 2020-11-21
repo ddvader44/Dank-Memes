@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MakeMemeActivity"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    tools:context=".MakeMemeActivity">
 
     <RelativeLayout
         android:id="@+id/tlay"
@@ -18,98 +18,94 @@
             android:id="@+id/editText1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:hint="@string/top_text"
-            android:textColorHint="@color/white"
             android:inputType="text"
             android:textColor="@color/white"
-            android:gravity="center"
-            />
+            android:textColorHint="@color/white" />
 
         <EditText
             android:id="@+id/editText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/editText1"
+            android:gravity="center"
             android:hint="@string/bottom_text"
-            android:textColorHint="@color/white"
             android:inputType="text"
             android:textColor="@color/white"
-            android:gravity="center"
-            android:layout_below="@+id/editText1"/>
+            android:textColorHint="@color/white" />
 
         <Button
             android:id="@+id/btnClear"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="@string/clear"
-            android:background="@drawable/button_bg"
-            android:textColor="@color/colorPrimaryDark"
-            android:backgroundTint="@color/bruh"
             android:layout_below="@+id/editText2"
             android:layout_margin="30dp"
-            android:onClick="clear"/>
+            android:background="@drawable/button_bg"
+            android:backgroundTint="@color/bruh"
+            android:onClick="clear"
+            android:text="@string/clear"
+            android:textColor="@color/colorPrimaryDark" />
 
         <Button
             android:id="@+id/go"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editText2"
+            android:layout_margin="30dp"
             android:layout_toEndOf="@+id/btnClear"
             android:background="@drawable/button_bg"
             android:backgroundTint="@color/colorAccent"
+            android:onClick="tryBtn"
             android:text="@string/trybtn"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_margin="30dp"
-            android:onClick="tryBtn"/>
+            android:textColor="@color/colorPrimaryDark" />
 
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/blay"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:weightSum="3"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal"
+        android:weightSum="3">
 
         <Button
             android:id="@+id/load"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:text="@string/choose_image"
-            android:textSize="12sp"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_bg"
-            android:textColor="@color/colorPrimaryDark"
-            android:backgroundTint="#FA8072"
             android:layout_margin="15dp"
-            />
+            android:layout_weight="1"
+            android:background="@drawable/button_bg"
+            android:backgroundTint="#FA8072"
+            android:text="@string/choose_image"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/save"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:text="@string/save"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_bg"
-            android:textColor="@color/colorPrimaryDark"
-            android:backgroundTint="#9ACD32"
             android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_bg"
+            android:backgroundTint="#9ACD32"
             android:onClick="save"
-            />
+            android:text="@string/save"
+            android:textColor="@color/colorPrimaryDark" />
 
         <Button
             android:id="@+id/share"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:text="@string/share"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_bg"
-            android:textColor="@color/colorPrimaryDark"
-            android:backgroundTint="#FF00FF"
             android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_bg"
+            android:backgroundTint="#FF00FF"
             android:onClick="share"
-            />
+            android:text="@string/share"
+            android:textColor="@color/colorPrimaryDark" />
 
     </LinearLayout>
 
@@ -124,9 +120,8 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:scaleType="fitXY"
             android:layout_height="match_parent"
-            />
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/textView1"
@@ -135,23 +130,22 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/product"
             android:gravity="center"
             android:textColor="#ffffff"
-            android:textSize="32sp"
-            android:fontFamily="@font/product"
-            />
+            android:textSize="32sp" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/product"
             android:gravity="center"
             android:textColor="#ffffff"
-            android:textSize="40sp"
-            android:fontFamily="@font/product"/>
+            android:textSize="40sp" />
 
 
     </RelativeLayout>

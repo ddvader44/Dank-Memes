@@ -15,6 +15,9 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import com.mindorks.Screenshot
+import com.mindorks.properties.Flip
+import com.mindorks.properties.Quality
 import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
 import java.io.FileOutputStream
@@ -158,13 +161,19 @@ class MakeMemeActivity : AppCompatActivity() {
 
 
     private fun screenShot(view: View): Bitmap {
-        val bitmap = Bitmap.createBitmap(
+      /*  val bitmap = Bitmap.createBitmap(
             view.width,
             view.height, Bitmap.Config.ARGB_8888
         )
         val canvas = Canvas(bitmap)
         view.draw(canvas)
-        return bitmap
+        return bitmap */
+        return Screenshot.with(this)
+            .setView(view)
+            .setQuality(Quality.HIGH)
+            .setFlip(Flip.HORIZONTALLY)
+            .getScreenshot()
+
     }
 
 
